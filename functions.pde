@@ -167,7 +167,7 @@ void displayMenu() {
 void displayDifficulty(int difficulty) {
     text("< " + difficultyLevels[difficulty] + ": " + (100 - N_FOODS) + "% " + "barrier, " + N_FOODS + "% food, " + FISH_SPEED * 50 + "% speed >", width / 2, 200);
 
-    if(difficulty == 6) {
+    if (difficulty == 6) {
       textSize(16);
       text("Barriers randomly generate every 2 seconds!", width / 2, 220);
     }
@@ -178,15 +178,15 @@ void displayDifficulty(int difficulty) {
   - Reset barrier coordinates
 */
 void resetBarriers() {
-  //Generate new barrier coordinates
-  for(int barrier = 0; barrier < N_BARRIERS; ++barrier) {
-    //Reset hasBeenEaten[] values
+  // Generate new barrier coordinates
+  for (int barrier = 0; barrier < N_BARRIERS; ++barrier) {
+    // Reset hasBeenEaten[] values
     hasBeenEaten[barrier] = false;
 
-    //Generate food blocks
+    // Generate food blocks
     isFood[barrier] = (random(100) < N_FOODS) ? true : false;
 
-    //Generate new barrier coordinates
+    // Generate new barrier coordinates
     x[barrier] = (int)random(1, width/barrierWidth) * barrierWidth;
     y[barrier] = (int)random(0, height/barrierHeight) * barrierHeight;
   }
@@ -255,8 +255,8 @@ void changeDifficulty(int newDifficulty) {
   - Execute if mouse button is pressed.
 */
 void mousePressed() {
-  if(gameStart) {
-    if(gameOver) {
+  if (gameStart) {
+    if (gameOver) {
       gamePaused = false;
       newGame();
     }
