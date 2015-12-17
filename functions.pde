@@ -44,14 +44,9 @@ void drawBarriers() {
   rectMode(CORNER);
 
   for (int barrier = 0; barrier < N_BARRIERS; ++barrier) {
-    if (isFood[barrier]) {
-      fill(0, 255, 0);
-    }
-    else {
-      fill(255, 0, 0);
-    }
+    fill((isFood[barrier]) ? 0 : 255, (isFood[barrier]) ? 255 : 0, 0);
       
-    if(!hasBeenEaten[barrier]) {
+    if (!hasBeenEaten[barrier]) {
       rect(x[barrier], y[barrier], barrierWidth, barrierHeight);
     }
   }
@@ -59,9 +54,7 @@ void drawBarriers() {
 
 void gameOver() {
   gameOver = true;
-
   noLoop();
-
   messageBox(0, 210, width / 2, height / 2, 220, 80);
  
   // Display game over message
@@ -73,9 +66,8 @@ void gameOver() {
   displayText("High Score: " + highScore, width / 2, height / 2 + 30, 16, pausedColour);
   textAlign(LEFT);
 
-  if (playerScore > highScore) {
-    highScore = playerScore;
-  }
+  // If player score exceeds high score, update high score
+  highScore = (playerScore > highScore) ? playerScore : highScore
 }
 
 void messageBox(color rgb, float opacity, int posX, int posY, int boxHeight, int boxWidth) {
@@ -112,7 +104,6 @@ void displayText(String msg, int textX, int textY, int textSize, color textRGB) 
 
 void pauseGame(int pausedX, int pausedY, int pausedSize, color pausedColour) {
   noLoop();
-
   messageBox(0, 210, width / 2, height / 2, 220, 80);
 
   //Display paused message
@@ -124,22 +115,17 @@ void pauseGame(int pausedX, int pausedY, int pausedSize, color pausedColour) {
 
 void displayMenu() {
   background(bgRGB);
-
   drawBarriers();
-
   rectMode(CENTER);
   textAlign(CENTER);
-
   textFont(font);
 
   fill(25, 230);
   rect(width/2, height / 2, width - 100, height - 150);
-
   fill(25, 150);
   rect(width / 2, height / 2 - 88, 470, 50);
 
   fill(255);
-  
   text("Swimmy Fish", width / 2, 120);
 
   fill(0, 255, 0);
@@ -150,7 +136,6 @@ void displayMenu() {
   }
   
   timer++;
-
   displayDifficulty(difficultyLevel);
 
   fill(255);
