@@ -9,19 +9,15 @@
 */
 
 void setup () {
-  // Set up the window
   size(fishWidth * BLOCKS_TO_MOVE, fishHeight * LANES);
   frameRate(60);
   smooth();
   noStroke();
-  // Clear the background so that the previous drawing is erased
   background(bgRGB);
   newGame();
 }
 
 void draw () {
-  // Draw when the game is running
-  // When the game is paused, do not draw to the screen
   if (!gameStart) {
     displayMenu();
   }
@@ -31,34 +27,25 @@ void draw () {
   }
     
   else {
-    //Reset canvas, redraw background
-    background(bgRGB);
-    
-    //Draw fish
+    background(bgRGB); // Redraw background
     drawFish();
-    //Draw barriers
     drawBarriers();
-    //Display status bar showing score, high score, time remaining
     displayStatus(0, 210, 0, 0, width, 20);
 
-    //Only move fish when the game is running
-    fishX += FISH_SPEED;
-    
-    if (timer % 60 == 0) {
-      timeLimit--;
-    }
+    fishX += FISH_SPEED; // Move fish horizontally
+    timeLimit -= (timer % 60 == 0); // Update time limit at interval
       
-    else if (timeLimit == 0) {
+    if (timeLimit == 0) {
       gameOver();
     }
-      
+    
     if (difficultyLevel == 6 && timer % 120 == 0) {
       resetBarriers();
     }
 
     timer++;
 
-    //Detect collision
+    // Detect collision
     for (int barrier = 0; barrier < N_BARRIERS; ++barrier) {
       if (hasFishHit(barrier)) {
 
@@ -68,17 +55,14 @@ void draw () {
           }
         }
 
-        else
-        {
-          //Reset game, reset player score
-          killFish();
+        else {
+          killFish(); // Reset game and player score
         }
       }
     }
 
-  //Check if fish has left the screen
+  // Check if fish has left the screen horizontally
   if (hasFishWon()) {
-    //Load next level of game
     loadNextLevel();
   }
   }
