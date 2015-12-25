@@ -33,17 +33,15 @@ void draw () {
     displayStatus(0, 210, 0, 0, width, 20);
 
     fishX += FISH_SPEED; // Move fish horizontally
-    timeLimit -= (timer % 60 == 0); // Update time limit at interval
+    timeLimit -= !(timer % 60); // Update time limit at interval
       
-    if (timeLimit == 0) {
+    if (!timeLimit) {
       gameOver();
     }
     
-    if (difficultyLevel == 6 && timer % 120 == 0) {
+    if (difficultyLevel == 6 && !(timer++ % 120)) {
       resetBarriers();
     }
-
-    timer++;
 
     // Detect collision
     for (int barrier = 0; barrier < N_BARRIERS; ++barrier) {
