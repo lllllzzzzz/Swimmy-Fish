@@ -26,7 +26,7 @@ void drawFish() {
   fill(eyeRGB);
   
   // Draw the eye
-  ellipse (eyeX, eyeY, eyeDiameter, eyeDiameter);
+  ellipse(eyeX, eyeY, eyeDiameter, eyeDiameter);
 
   // Draw spiky tail
   stroke(0);
@@ -131,11 +131,10 @@ void displayMenu() {
   fill(0, 255, 0);
   textSize(20);
   
-  if(timer % 120 == 0) {
+  if (!(timer++ % 120)) {
     resetBarriers();
   }
   
-  timer++;
   displayDifficulty(difficultyLevel);
 
   fill(255);
@@ -169,19 +168,17 @@ void resetBarriers() {
     hasBeenEaten[barrier] = false;
 
     // Generate food blocks
-    isFood[barrier] = (random(100) < N_FOODS) ? true : false;
+    isFood[barrier] = random(100) < N_FOODS;
 
     // Generate new barrier coordinates
-    x[barrier] = (int)random(1, width/barrierWidth) * barrierWidth;
-    y[barrier] = (int)random(0, height/barrierHeight) * barrierHeight;
+    x[barrier] = (int) random(1, width / barrierWidth) * barrierWidth;
+    y[barrier] = (int) random(0, height / barrierHeight) * barrierHeight;
   }
 }
 
 void loadNextLevel() {
   resetBarriers();
-
-  fishX = 0 - fishWidth;
-
+  fishX = -fishWidth;
   playerScore += SCORE_WIN;
 }
 
@@ -196,7 +193,6 @@ void killFish() {
 
 void eatFood(int food) {
   hasBeenEaten[food] = true;
-
   playerScore += SCORE_FOOD;
 }
 
